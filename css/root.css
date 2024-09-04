@@ -1,0 +1,16 @@
+@import url("https://fonts.googleapis.com/css2?family=VT323&display=swap");
+
+:root {
+    --bg-card:#663705ed;
+    --bg-footer:#663705ed;
+    --bg-input:#e8e2dcf5;  
+    --border:#6c5858; 
+    --btn-fire:#b97c14;
+    --cor-bg: #484646;
+    --cor-btn: #703911;
+    --cor-btn-hover:#4a2307;
+    --cor-bgcard: #7d6f6f;
+    --cor-font: #f3efef;
+    --font-base: 'VT323', sans-serif;
+  }
+  
