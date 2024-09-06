@@ -4,7 +4,7 @@
 [![CSS3 Badge](https://img.shields.io/badge/css3-%231572B6.svg)](https://en.wikipedia.org/wiki/CSS)
 [![JavaScript Badge](https://img.shields.io/badge/javascript-%F0%9F%9E%AB%20yellow.svg)](https://en.wikipedia.io/wiki/wiki/JavaScript)
 ## Descrição
-Projeto realizado na Imersão Dev Alura Gemini-2024,que apresenta informações detalhadas sobre os Nove Titãs Originais, personagens do anime Attack on Titan, usando normalização do texto digitado para gerar um card do personagem direto no javascript.
+Projeto realizado na Imersão Dev [Alura](https://www.youtube.com/watch?v=i4W_bkGkk6s) [Gemini](https://gemini.google.com/app?hl=pt-BR) ,que apresenta informações detalhadas sobre os Nove Titãs Originais, personagens do anime Attack on Titan, usando normalização do texto digitado para gerar um card do personagem direto no javascript.
 
 ![Screenshot 2024-09-05 205652](https://github.com/user-attachments/assets/2a15bc51-a0a1-405d-8471-c0b5e9e9f251)
 
@@ -46,6 +46,7 @@ function buscarTitans(nomeDigitado) {
 
 ## Contribuições
 Contribuições são bem-vindas! Por favor, abra um pull request.
+Se não souber como fazer o clone do projeto, veja o [tutorial](https://www.alura.com.br/artigos/clonando-repositorio-git-github)
 
-## Autores
+## Autora
 * Roberta Ribeiro
