@@ -1,7 +1,11 @@
+// Seleciona o elemento de input onde o usuário digita o nome do titã
 const cardInput = document.getElementById("titansInput");
+// Seleciona a div onde o resultado da busca será exibido
 const resultadoDiv = document.getElementById("card");
+// Seleciona o botão que inicia a busca
 const buscaButton = document.getElementById("buscaButton");
 
+// Array que será consumido para criação dos cards
 const titans = [
   {
     id: 1,
@@ -49,7 +53,7 @@ const titans = [
     imagem: "assets/img/blindado.jpg",
     portador: "Reiner Braun",
     habilidades:
-      "Ele também possui a capacidade de endurecer seus braços e pés em garras mais afiadas que podem ser usadas para escalar estruturas como as Muralhas.",
+      "Também conhecido por titã encouraçado.Ele também possui a capacidade de endurecer seus braços e pés em garras mais afiadas que podem ser usadas para escalar estruturas como as Muralhas.",
     nacionalidade: "Marley",
     linkVideo: "https://youtu.be/NEG1cndv1OI?si=RHeUdNzfin2B_3K2",
   },
@@ -79,7 +83,7 @@ const titans = [
     imagem: "assets/img/Carroceiro.jpg",
     portador: "Pieck Finger",
     habilidades:
-      "Grande resistência que o permite permanecer transformado por longos períodos de tempo",
+      "Conhecido também por titã quadrúpede.Grande resistência que o permite permanecer transformado por longos períodos de tempo",
     nacionalidade: "Marley",
     linkVideo: "https://youtu.be/0OYdAITH1gw?si=M0E0s1pMI8-WyjJ4",
   },
@@ -95,9 +99,55 @@ const titans = [
   },
 ];
 
-function mostrarCard(id) {
-  const titan = titans.find((titan) => titan.id === parseInt(id));
-  const botaoSaibaMais = criarBotaoSaibaMais(titan.linkVideo);
+  // Normaliza o termo inserido no input para realizar a busca
+function normalizeString(str) {
+  return str
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase();
+}
+
+  // Filtra o array de titãs, retornando apenas os que atendem ao critério de busca
+  // Normaliza o nome do titã e separa em palavras
+function buscarTitans(nomeDigitado, titans) {
+  const palavrasDigitadas = normalizeString(nomeDigitado).split(" ").filter(palavra => palavra.length >= 3);
+  return titans.filter((titan) => {
+    const palavrasTitan = normalizeString(titan.nome).split(" ");
+
+    return palavrasDigitadas.every((palavra) =>
+      palavrasTitan.some(palavraTitan => palavraTitan.includes(palavra)) 
+  );
+  });
+}
+
+//Retira o card da página ao clicar nele
+document.addEventListener('click', (event) => {
+  if (event.target.closest('#card') ||
+      event.target === input ||
+      event.target === buscaButton) {
+    resultadoDiv.style.display = 'none';
+  }
+});
+
+// Exibe o card com os atributos após o input passar pelo tratamento
+function mostrarCard(nome) {
+  const nomeNormalizado = nome
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase();
+  const titan = titans.find(
+    (titan) =>
+      titan.nome
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase() === nomeNormalizado);
+
+  const botoesExistentes = resultadoDiv.querySelectorAll(".botao-saiba-mais");
+  botoesExistentes.forEach(botao => botao.remove());
+
+  // Atualiza o link do botão e adiciona ao card
+  botaoSaibaMais.href = titan.linkVideo;
+  resultadoDiv.appendChild(botaoSaibaMais);
 
   if (titan) {
     resultadoDiv.querySelector("img").src = titan.imagem;
@@ -111,16 +161,20 @@ function mostrarCard(id) {
     resultadoDiv.innerHTML = "<p>Titã não encontrado.</p>";
     resultadoDiv.style.display = "block";
   }
-
-  cardInput.value = "";
+    cardInput.value="";
 }
+
+// Cria o botão Saiba mais no card a partir do js
+const botaoSaibaMais = document.createElement("button");
+botaoSaibaMais.textContent = "Saiba Mais";
+botaoSaibaMais.classList.add("botao-saiba-mais");
 
 function criarBotaoSaibaMais(linkVideo) {
   const botao = document.createElement("button");
   botao.textContent = "Saiba Mais";
   botao.href = linkVideo;
   botao.target = "_blank";
-  botao.addEventListener("click", (event) => {
+  botao.addEventListener("click",(event) => {
     event.preventDefault();
     window.open(linkVideo, "_blank");
   });
@@ -128,14 +182,19 @@ function criarBotaoSaibaMais(linkVideo) {
   return botao;
 }
 
+// Configuração do evento do click da barra de pesquisa
 buscaButton.addEventListener("click", () => {
-  const id = cardInput.value;
-  mostrarCard(id);
+  const nome = cardInput.value;
+    mostrarCard(nome);
+    cardInput.value= "";  
 });
 
+// Configuração do evento da tecla enter da barra de pesquisa
 cardInput.addEventListener("keydown", (event) => {
   if (event.key === "Enter") {
-    const id = cardInput.value;
-    mostrarCard(id);
+    const nome = cardInput.value;
+    mostrarCard(nome);
+    cardInput.value= "";
   }
 });
+
